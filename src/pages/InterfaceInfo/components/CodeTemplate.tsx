@@ -71,6 +71,8 @@ export const requestParam: ProColumns[] = [
   {
     title: '参数名称',
     dataIndex: 'fieldName',
+    editable: false,
+    width: 180,
     formItemProps: {
       rules: [
         {
@@ -81,7 +83,21 @@ export const requestParam: ProColumns[] = [
     },
   },
   {
+    title: '必选',
+    width: 180,
+    dataIndex: 'required',
+    editable: false,
+    valueType: 'text',
+  },
+  {
+    title: '描述',
+    dataIndex: 'desc',
+    key: 'desc',
+    editable: false,
+  },
+  /*  {
     title: '参数值',
+    width: 300,
     dataIndex: 'value',
     formItemProps: {
       rules: [
@@ -91,6 +107,11 @@ export const requestParam: ProColumns[] = [
         },
       ],
     },
+  }, */
+  {
+    title: '参数值',
+    width: 385,
+    dataIndex: 'value',
   },
 ];
 

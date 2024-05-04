@@ -17,7 +17,7 @@ export default defineConfig({
 
       schemaPath:
         process.env.NODE_ENV === 'production'
-          ? 'https://gateway.suki.vin/api/backend/v3/api-docs'
+          ? 'https://api.suki.vin/api/backend/v3/api-docs'
           : 'http://localhost:9000/api/backend/v3/api-docs',
       projectName: 'api-backend',
     },
@@ -42,6 +42,11 @@ export default defineConfig({
     {
       src: '/scripts/loading.js',
       async: true,
+    },
+    {
+      // src: 'https://api.vvhan.com/api/script/yinghua',
+      src: '/scripts/yinghua.js',
+      defer: true,
     },
   ],
   presets: ['umi-presets-pro'],

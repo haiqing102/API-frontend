@@ -73,7 +73,6 @@ const PayOrder: React.FC = () => {
   };
   const getOrder = async () => {
     const res = await getProductOrderByIdUsingGet({ id: params.id });
-    console.log(res);
     if (res.code === 0 && res.data) {
       const data = {
         productInfo: res.data,
@@ -119,8 +118,6 @@ const PayOrder: React.FC = () => {
             const urlParams = new URL(window.location.href).searchParams;
             history.push(urlParams.get('redirect') || '/account/center');
           }, 2000);
-        } else {
-          console.log('支付中...');
         }
       }, 3000);
       if (status === 'expired') {

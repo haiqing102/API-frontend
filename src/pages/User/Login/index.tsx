@@ -113,7 +113,7 @@ const Login: React.FC = () => {
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src="/assets/logo.gif" />}
-          title="API 接口服务平台"
+          title={'API 接口服务平台'}
           subTitle={'致力于提供安全、稳定、高效的接口调用服务'}
           initialValues={{
             autoLogin: true,

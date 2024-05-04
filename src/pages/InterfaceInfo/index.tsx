@@ -42,6 +42,7 @@ const InterfaceInfo: React.FC = () => {
     'tools' | 'api' | 'errorCode' | 'sampleCode' | string
   >('api');
   const [result, setResult] = useState<string>();
+  const [resultObj, setResultObj] = useState<API.BaseResponseobject>();
   const [resultLoading, setResultLoading] = useState<boolean>(false);
   const params = useParams();
   const [form] = Form.useForm();
@@ -50,9 +51,7 @@ const InterfaceInfo: React.FC = () => {
   const [javaCode, setJavaCode] = useState<any>();
   const [returnCode, setReturnCode] = useState<any>(returnExample);
   const docUrl =
-    process.env.NODE_ENV === 'production'
-      ? 'https://doc.suki.vin'
-      : 'http://localhost:8001/';
+    process.env.NODE_ENV === 'production' ? 'https://doc.suki.vin' : 'http://localhost:8001/';
   const { initialState } = useModel('@@initialState');
   const { loginUser } = initialState || {};
   const loadedData = async () => {
@@ -153,8 +152,10 @@ const InterfaceInfo: React.FC = () => {
       ...values,
     });
     if (res.code === 0) {
+      message.success('接口调用成功');
       setTotalInvokes(Number(totalInvokes) + 1);
     }
+    setResultObj(res);
     setResult(JSON.stringify(res, null, 4));
     setResultLoading(false);
   };
@@ -179,6 +180,8 @@ const InterfaceInfo: React.FC = () => {
         paramsTableChange={(e: any) => {
           setTemporaryParams(e);
         }}
+        requestParams={requestParams}
+        resultObj={resultObj}
         result={result}
         resultLoading={resultLoading}
       />
@@ -291,7 +294,7 @@ const InterfaceInfo: React.FC = () => {
           }
         >
           <Button size={'large'}>
-            <a target={'_blank'} href={'https://github.com/qimu666/qi-api-sdk'} rel="noreferrer">
+            <a target={'_blank'} href={'https://github.com/haiqing102/API-skd'} rel="noreferrer">
               <VerticalAlignBottomOutlined /> Java SDK
             </a>
           </Button>

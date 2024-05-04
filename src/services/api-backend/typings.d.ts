@@ -96,7 +96,7 @@ declare namespace API {
 
   type deleteProductOrderUsingPostParams = {
     /** id */
-    id?: string;
+    id?: number;
   };
 
   type DeleteRequest = {

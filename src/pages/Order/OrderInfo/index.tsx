@@ -188,7 +188,7 @@ export default () => {
             ) : null}
           </Descriptions.Item>
           <Descriptions.Item key={'productType'} label="商品类别">
-            {data && data.productType === 'RECHARGEACTIVITY' && '充值活动'}
+            {data && data.productType === 'RECHARGE_ACTIVITY' && '充值活动'}
             {data && data.productType === 'RECHARGE' && '积分充值'}
             {data && data.productType === 'VIP' && 'VIP会员'}
           </Descriptions.Item>

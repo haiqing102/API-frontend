@@ -37,7 +37,7 @@ export const ProductInfoModalFormColumns: ProFormColumnsType<API.ProductInfo, 't
       RECHARGE: {
         text: '积分充值',
       },
-      RECHARGEACTIVITY: {
+      RECHARGE_ACTIVITY: {
         text: '充值活动',
       },
     },
@@ -176,7 +176,7 @@ export const ProductInfoColumns: ProColumns<API.ProductInfo>[] = [
       RECHARGE: {
         text: '积分充值',
       },
-      RECHARGEACTIVITY: {
+      RECHARGE_ACTIVITY: {
         text: '充值活动',
       },
     },

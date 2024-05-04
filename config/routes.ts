@@ -14,7 +14,7 @@
   },
   {
     name: '用户页',
-    layout: false,
+    layout: false, // 不参与布局
     routes: [
       {
         path: '/user',

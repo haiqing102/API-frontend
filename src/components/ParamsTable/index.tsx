@@ -2,6 +2,7 @@ import { EditableProTable, ProColumns } from '@ant-design/pro-components';
 import React, { useEffect, useState } from 'react';
 
 const ParamsTable: React.FC<{
+  requestParams?: [];
   defaultNewColumn: any;
   column: ProColumns[];
   value?: string;
@@ -14,8 +15,10 @@ const ParamsTable: React.FC<{
       required?: string;
     }[],
   ) => void;
-}> = ({ value, onChange, defaultNewColumn, column }) => {
-  const [dataSource, setDataSource] = useState<readonly API.RequestParamsField[]>([]);
+}> = ({ value, onChange, requestParams, column }) => {
+  const [dataSource, setDataSource] = useState<readonly API.RequestParamsField[]>(
+    requestParams || [],
+  );
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>(() => {
     return dataSource.map((item) => item.id as React.Key);
   });
@@ -39,32 +42,7 @@ const ParamsTable: React.FC<{
   const handleInputChange = (e: any) => {
     onChange?.(e);
   };
-  const columns: ProColumns[] = [
-    ...column,
-    {
-      title: '操作',
-      valueType: 'option',
-      render: (text, record, _, action) => [
-        <a
-          key="editable"
-          onClick={() => {
-            // @ts-ignore
-            action?.startEditable?.(record.id);
-          }}
-        >
-          编辑
-        </a>,
-        <a
-          key="delete"
-          onClick={() => {
-            setDataSource(dataSource.filter((item) => item.id !== record.id));
-          }}
-        >
-          删除
-        </a>,
-      ],
-    },
-  ];
+  const columns: ProColumns[] = [...column];
 
   return (
     <EditableProTable<any>
@@ -75,16 +53,7 @@ const ParamsTable: React.FC<{
       }}
       value={dataSource}
       onChange={setDataSource}
-      recordCreatorProps={{
-        newRecordType: 'dataSource',
-        position: 'bottom',
-        record: () => {
-          return {
-            id: Date.now().toString(),
-            ...defaultNewColumn,
-          };
-        },
-      }}
+      recordCreatorProps={false}
       editable={{
         type: 'multiple',
         editableKeys,

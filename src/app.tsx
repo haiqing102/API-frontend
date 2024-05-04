@@ -97,7 +97,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             tooltip={'查看本站技术及源码，欢迎 star'}
             icon={<GithubOutlined />}
             onClick={() => {
-              location.href = 'https://github.com/qimu666/qi-api';
+              location.href = 'https://github.com/haiqing102/API-platform';
             }}
           />
           <FloatButton

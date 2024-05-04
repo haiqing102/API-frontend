@@ -43,7 +43,7 @@ export const orderPayTypeEnum: any = {
 };
 
 export const productTypeEnum: any = {
-  RECHARGEACTIVITY: '充值活动',
+  RECHARGE_ACTIVITY: '充值活动',
   RECHARGE: '积分充值',
   VIP: 'VIP会员',
 };

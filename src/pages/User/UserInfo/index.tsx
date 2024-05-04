@@ -3,7 +3,7 @@ import SendGiftModal from '@/components/Gift/SendGift';
 import { requestConfig } from '@/requestConfig';
 import { doDailyCheckInUsingPost } from '@/services/api-backend/dailyCheckInController';
 import {
-  getLoginUserUsingGet,
+  getUserByIdUsingGet,
   updateUserUsingPost,
   updateVoucherUsingPost,
   userBindEmailUsingPost,
@@ -103,13 +103,14 @@ const UserInfo: React.FC = () => {
 
   const loadData = async () => {
     setLoading(true);
-    const res = await getLoginUserUsingGet();
+    const res = await getUserByIdUsingGet({ id: loginUser?.id });
     if (res.data && res.code === 0) {
-      if (initialState?.settings.navTheme === 'light') {
-        setInitialState({ loginUser: res.data, settings: { ...Settings, navTheme: 'light' } });
-      } else {
-        setInitialState({ loginUser: res.data, settings: { ...Settings, navTheme: 'realDark' } });
-      }
+      setInitialState((oldState) => {
+        return {
+          ...oldState,
+          loginUser: res.data,
+        };
+      });
       const updatedFileList = [...fileList];
       if (loginUser && loginUser.userAvatar) {
         updatedFileList[0] = {
@@ -439,10 +440,15 @@ const UserInfo: React.FC = () => {
               setDailyCheckInLoading(true);
               const res = await doDailyCheckInUsingPost();
               if (res.data && res.code === 0) {
-                const res = await getLoginUserUsingGet();
+                const res = await getUserByIdUsingGet({ id: loginUser?.id });
                 if (res.data && res.code === 0) {
                   message.success('签到成功');
-                  setInitialState({ loginUser: res.data, settings: Settings });
+                  setInitialState((oldState) => {
+                    return {
+                      ...oldState,
+                      loginUser: res.data,
+                    };
+                  });
                 }
               }
               setTimeout(() => {
@@ -500,7 +506,7 @@ const UserInfo: React.FC = () => {
           bordered
         >
           <Button size={'large'}>
-            <a target={'_blank'} href={'https://github.com/qimu666/qi-api-sdk'} rel="noreferrer">
+            <a target={'_blank'} href={'https://github.com/haiqing102/API-sdk'} rel="noreferrer">
               <VerticalAlignBottomOutlined /> Java SDK
             </a>
           </Button>

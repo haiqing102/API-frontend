@@ -2,27 +2,31 @@ import CodeHighlighting from '@/components/CodeHighlighting';
 import ParamsTable from '@/components/ParamsTable';
 import { DEFAULT_ADD_FIELD, requestParam } from '@/pages/InterfaceInfo/components/CodeTemplate';
 import '@umijs/max';
-import { Button, Empty, Form, Select, Space, Spin } from 'antd';
+import { Button, Empty, Form, Image, Select, Space, Spin } from 'antd';
 import Search from 'antd/es/input/Search';
 import React from 'react';
 
 export type Props = {
+  requestParams?: [];
   data?: API.InterfaceInfo;
   temporaryParams: any;
   requestExampleActiveTabKey: string;
   onSearch: (values: any) => void;
   paramsTableChange: (values: any) => void;
   result?: string;
+  resultObj?: API.BaseResponseobject;
   form: any;
   resultLoading: boolean;
 };
 const ToolsTab: React.FC<Props> = (props) => {
   const {
+    requestParams,
     onSearch,
     data,
     form,
     temporaryParams,
     paramsTableChange,
+    resultObj,
     result,
     resultLoading,
     requestExampleActiveTabKey,
@@ -40,6 +44,7 @@ const ToolsTab: React.FC<Props> = (props) => {
       ]}
     />
   );
+
   return (
     <>
       <Form
@@ -67,6 +72,7 @@ const ToolsTab: React.FC<Props> = (props) => {
         </p>
         <Form.Item name={'requestParams'}>
           <ParamsTable
+            requestParams={requestParams}
             value={temporaryParams}
             onChange={(value: any) => {
               paramsTableChange?.(value);
@@ -75,9 +81,9 @@ const ToolsTab: React.FC<Props> = (props) => {
             column={requestParam}
           />
         </Form.Item>
-        <Form.Item>
+        <Form.Item style={{ display: 'flex', justifyContent: 'center' }}>
           <Space size="large" wrap>
-            <Button type="primary" htmlType="reset" style={{ width: 180 }}>
+            <Button type="primary" htmlType="reset" style={{ width: 150 }}>
               重置
             </Button>
           </Space>
@@ -93,6 +99,31 @@ const ToolsTab: React.FC<Props> = (props) => {
           <Empty description={'未发起调用，暂无请求信息'} />
         )}
       </Spin>
+      <br />
+      {resultObj?.data?.imgurl && (
+        <Spin spinning={resultLoading}>
+          <Image width={400} src={resultObj?.data?.imgurl} />
+        </Spin>
+      )}
+
+      {resultObj?.data?.url && (
+        <Spin spinning={resultLoading}>
+          <Image width={200} src={resultObj.data.url} />
+        </Spin>
+      )}
+
+      {resultObj?.data?.info?.url && (
+        <Spin spinning={resultLoading}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ marginRight: '10px' }}>
+              <Image width={60} src={resultObj.data.info.picUrl} />
+            </div>
+            <div>
+              <audio src={resultObj.data.info.url} autoPlay controls></audio>
+            </div>
+          </div>
+        </Spin>
+      )}
     </>
   );
 };

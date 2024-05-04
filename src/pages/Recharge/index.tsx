@@ -1,11 +1,10 @@
 import Coin from '@/components/Icon/Coin';
 import { listProductInfoByPageUsingGet } from '@/services/api-backend/productInfoController';
-import { getLoginUserUsingGet } from '@/services/api-backend/userController';
+import { getUserByIdUsingGet } from '@/services/api-backend/userController';
 import ProCard, { CheckCard } from '@ant-design/pro-card';
 import { history, useModel } from '@umijs/max';
 import { Button, Card, message, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
-import Settings from '../../../config/defaultSettings';
 
 const PayOrder: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -22,16 +21,14 @@ const PayOrder: React.FC = () => {
   }, [total]);
 
   const loadData = async () => {
-    const userdata = await getLoginUserUsingGet();
+    const userdata = await getUserByIdUsingGet({ id: loginUser?.id });
     if (userdata.data && userdata.code === 0) {
-      if (initialState?.settings.navTheme === 'light') {
-        setInitialState({ loginUser: userdata.data, settings: { ...Settings, navTheme: 'light' } });
-      } else {
-        setInitialState({
+      setInitialState((oldState) => {
+        return {
+          ...oldState,
           loginUser: userdata.data,
-          settings: { ...Settings, navTheme: 'realDark' },
-        });
-      }
+        };
+      });
     }
     setLoading(true);
     const res = await listProductInfoByPageUsingGet({});
@@ -86,11 +83,11 @@ const PayOrder: React.FC = () => {
                             // @ts-ignore
                             style={{
                               color: 'red',
-                              fontSize: item.productType === 'RECHARGEACTIVITY' ? 16 : 18,
+                              fontSize: item.productType === 'RECHARGE_ACTIVITY' ? 16 : 18,
                               fontWeight: 'bold',
                             }}
                           >
-                            {item.productType === 'RECHARGEACTIVITY' ? '体验 ' : null}￥
+                            {item.productType === 'RECHARGE_ACTIVITY' ? '体验 ' : null}￥
                             {/*// @ts-ignore*/}
                             {item?.total / 100}
                           </h3>
@@ -102,7 +99,7 @@ const PayOrder: React.FC = () => {
                           <Coin></Coin>
                         </>
                       }
-                      style={{ width: 230, height: 272 }}
+                      style={{ width: 210, height: 250 }}
                       title={<strong>💰 {item.addPoints} 积分</strong>}
                       value={item.total}
                     />

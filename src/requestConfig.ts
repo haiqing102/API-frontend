@@ -13,15 +13,14 @@ interface ResponseStructure {
 
 export const requestConfig: RequestConfig = {
   baseURL:
-    process.env.NODE_ENV === 'production' ? 'https://gateway.suki.vin/' : 'http://localhost:9000/',
+    process.env.NODE_ENV === 'production' ? 'https://api.suki.vin/' : 'http://localhost:9000/',
   withCredentials: true,
 
   // 请求拦截器
   requestInterceptors: [
     (config: RequestOptions) => {
       // 拦截请求配置
-      const url = config?.url?.concat('?token = 123');
-      return { ...config, url };
+      return { ...config };
     },
   ],
 
@@ -31,17 +30,18 @@ export const requestConfig: RequestConfig = {
       // 拦截响应数据
       const { data } = response as unknown as ResponseStructure;
       const { code } = data;
-      console.log(data.message);
       if (data && code === 0) {
         return response;
       } else {
         switch (code) {
+          // 账号已封禁
           case 40001:
             {
               message.error(data.message);
               history.push('/user/login');
             }
             break;
+          // 未登录
           case 40100:
             break;
           default:

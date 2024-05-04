@@ -157,7 +157,7 @@ const Welcome: React.FC = () => {
                 <br />
                 💻 作为开发者，我们提供了
                 {/*todo 地址修改*/}
-                <a href="https://github.com/qimu666/qi-api-sdk" target="_blank" rel="noreferrer">
+                <a href="https://github.com/haiqing102/API-sdk" target="_blank" rel="noreferrer">
                   客户端SDK
                 </a>
                 ， 通过

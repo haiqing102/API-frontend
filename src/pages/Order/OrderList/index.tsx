@@ -182,7 +182,6 @@ export default () => {
       request={async (params) => {
         setLoading(true);
         const res = await listProductOrderByPageUsingGet({ ...params });
-        console.log('orderlist');
         if (res.data) {
           setLoading(false);
           return {

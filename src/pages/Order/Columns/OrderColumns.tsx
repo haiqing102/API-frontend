@@ -70,7 +70,7 @@ export const OrderColumns: ProColumns<API.ProductOrderVo>[] = [
       RECHARGE: {
         text: '积分充值',
       },
-      RECHARGEACTIVITY: {
+      RECHARGE_ACTIVITY: {
         text: '充值活动',
       },
     },

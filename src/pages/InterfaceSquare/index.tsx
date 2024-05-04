@@ -89,9 +89,9 @@ const InterfaceSquare: React.FC = () => {
             xxl: 6,
           }}
           dataSource={data}
-          renderItem={(item, index) => (
+          renderItem={(item) => (
             <List.Item>
-              <ProCard key={index} bordered hoverable direction="column" style={{ height: 236 }}>
+              <ProCard key={item.id} bordered hoverable direction="column" style={{ height: 236 }}>
                 <ProCard
                   layout="center"
                   onClick={() => {
@@ -101,13 +101,8 @@ const InterfaceSquare: React.FC = () => {
                   <Badge count={item.totalInvokes} overflowCount={999999999} color="#eb4d4b">
                     <Image
                       style={{ width: 70 }}
-                      src={
-                        item?.avatarUrl ??
-                        'https://img.suki.vin/other/logo.gif'
-                      }
-                      fallback={
-                        'https://img.suki.vin/other/logo.gif'
-                      }
+                      src={item?.avatarUrl ?? 'https://img.suki.vin/other/logo.gif'}
+                      fallback={'https://img.suki.vin/other/logo.gif'}
                       alt={item.name}
                       preview={false}
                     />
