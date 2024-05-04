@@ -17,8 +17,8 @@ const SendGiftModal: React.FC<Props> = (props) => {
 
   const randomTexts = [
     '注册即送100积分💰奖励，API 接口服务平台为您提供安全、稳定、高效的接口调用服务！',
-    '免费领取100积分💰奖励，通过链接注册，API 接口服务平台为您提供稳定、安全、高效的接口调用服务！',
-    '通过链接注册，即可获得100积分💰奖励，API 接口服务平台为您提供稳定、安全、高效的接口调用服务！',
+    '免费领取100积分💰奖励，通过链接注册，API 接口服务平台为您提供安全、稳定、高效的接口调用服务！',
+    '通过链接注册，即可获得100积分💰奖励，API 接口服务平台为您提供安全、稳定、高效的接口调用服务！',
   ];
   const [giftValue, setGiftValue] = useState(``);
 
@@ -76,7 +76,7 @@ const SendGiftModal: React.FC<Props> = (props) => {
             }}
           >
             <div style={{ marginRight: '20px', fontWeight: 'bold' }}>
-              每邀请一个用户注册，您和被邀请者都将获得 “<strong>100积分 </strong>💰奖励”
+              每邀请一个用户注册，您和被邀请者都将获得 “<strong>100积分</strong>💰奖励”
             </div>
             <div
               onClick={() => {

@@ -13,6 +13,7 @@ const Settings: ProLayoutProps & {
   fixSiderbar: true,
   colorWeak: false,
   splitMenus: false,
+  logo: '/assets/logo.png',
   title: 'API 接口服务平台',
   pwa: false,
 };

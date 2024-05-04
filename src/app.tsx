@@ -18,7 +18,7 @@ import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history } from '@umijs/max';
 import { FloatButton, message } from 'antd';
 import Settings from '../config/defaultSettings';
-import logo from '../public/assets/logo.gif';
+import logo from '../public/assets/logo.png';
 import Footer from './components/Footer';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 
@@ -49,11 +49,12 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       const { location } = history;
       // 如果没有登录，重定向到login页
       if (
-        !initialState?.loginUser &&
-        location.pathname !== '/' &&
-        !/^\/\w+\/?$/.test(location.pathname) &&
-        location.pathname !== '/interface/list' &&
-        !location.pathname.includes('/interface_info/')
+        !initialState?.loginUser && //未登录
+        location.pathname !== '/' && //不是首页(欢迎页)
+        location.pathname !== '/welcome' && //不是首页(欢迎页)
+        location.pathname !== '/interface/list' && //不是接口广场页
+        !location.pathname.includes('/interface_info/') && //不是接口信息页
+        !/^\/\w+\/?$/.test(location.pathname) //不是邀请页 eg. /gao32h(邀请码)
       ) {
         message.error('未登录');
         history.push(loginPath);
@@ -68,7 +69,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             icon={<WechatOutlined />}
           />
           <FloatButton
-            tooltip={'📘 接口在线文档'}
+            tooltip={'📘 开发者文档'}
             icon={<FileTextOutlined />}
             onClick={() => {
               location.href =

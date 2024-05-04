@@ -104,7 +104,7 @@ const Login: React.FC = () => {
       <div
         style={{
           flex: '1',
-          padding: '70px 0',
+          padding: '105px 0 0 0',
         }}
       >
         <LoginForm
@@ -112,9 +112,19 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/assets/logo.gif" />}
-          title={'API 接口服务平台'}
-          subTitle={'致力于提供安全、稳定、高效的接口调用服务'}
+          // logo={<img alt="logo" src="/assets/logo.png" />}
+          title={
+            <a
+              href={
+                process.env.NODE_ENV === 'production'
+                  ? 'https://api.suki.vin'
+                  : 'http://localhost:8000'
+              }
+            >
+              <img src="/assets/logo_title.png" width={320}></img>
+            </a>
+          }
+          subTitle={<p style={{ marginTop: 20 }}>致力于提供安全、稳定、高效的接口调用服务</p>}
           initialValues={{
             autoLogin: true,
           }}

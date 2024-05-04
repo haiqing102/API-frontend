@@ -16,7 +16,7 @@ export type Props = {
   returnCode: string;
 };
 const ApiTab: React.FC<Props> = (props) => {
-  const { requestParams, errorCodeTab, sampleCode, responseParams, returnCode } = props;
+  const { requestParams, errorCodeTab, responseParams, returnCode } = props;
 
   return (
     <>
@@ -26,12 +26,12 @@ const ApiTab: React.FC<Props> = (props) => {
       <Table
         dataSource={requestParams && requestParams.length > 0 ? requestParams : requestParameters}
         pagination={false}
-        style={{ maxWidth: 800 }}
+        style={{ maxWidth: 650 }}
         size={'small'}
       >
-        <Column title="参数名称" dataIndex="fieldName" key="fieldName" />
-        <Column title="必选" dataIndex="required" key="required" />
-        <Column title="类型" dataIndex="type" key="type" />
+        <Column width={170} title="参数名称" dataIndex="fieldName" key="fieldName" />
+        <Column width={150} title="必选" dataIndex="required" key="required" />
+        <Column width={150} title="类型" dataIndex="type" key="type" />
         <Column title="描述" dataIndex="desc" key="desc" />
       </Table>
       <p className="highlightLine" style={{ marginTop: 15 }}>
@@ -42,15 +42,14 @@ const ApiTab: React.FC<Props> = (props) => {
           responseParams && responseParams?.length > 0 ? responseParams : responseParameters
         }
         pagination={false}
-        style={{ maxWidth: 800 }}
+        style={{ maxWidth: 470 }}
         size={'small'}
       >
-        <Column title="参数名称" dataIndex="fieldName" key="fieldName" />
-        <Column title="类型" dataIndex="type" key="type" />
+        <Column width={170} title="参数名称" dataIndex="fieldName" key="fieldName" />
+        <Column width={150} title="类型" dataIndex="type" key="type" />
         <Column title="描述" dataIndex="desc" key="desc" />
       </Table>
       {/*<p className="highlightLine" style={{marginTop: 15}}>请求示例：</p>*/}
-      <a onClick={() => sampleCode?.()}>见示例代码</a>
       <p className="highlightLine" style={{ marginTop: 15 }}>
         返回示例：
       </p>

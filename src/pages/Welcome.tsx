@@ -160,14 +160,14 @@ const Welcome: React.FC = () => {
                 <a href="https://github.com/haiqing102/API-sdk" target="_blank" rel="noreferrer">
                   客户端SDK
                 </a>
-                ， 通过
+                ，通过
                 <Link to="/account/center">开发者凭证</Link>
                 即可将 API 接口轻松集成到您的项目中，实现更高效的开发和调用。
                 <br />
-                🤝 您可以将自己的接口接入到 API 接口服务平台上，并发布给其他的用户使用。
-                您可以管理自己的各个接口，以便更好地分析和优化接口性能。
+                😽 您可以将自己的接口接入到 API
+                接口服务平台上，并发布给其他的用户使用。您可以管理自己的各个接口，以便更好地分析和优化接口性能。
                 <br />
-                👌 我们还提供了
+                👏 我们还提供了详细的
                 <a
                   href={
                     process.env.NODE_ENV === 'production'
@@ -177,11 +177,10 @@ const Welcome: React.FC = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  开发者在线文档
+                  开发者文档
                 </a>
                 和技术支持，帮助您快速地接入和发布接口。
-                <br />
-                🏁 无论您是用户还是开发者，API
+                <br />✅ 无论您是用户还是开发者，API
                 接口服务平台都致力于提供安全、稳定、高效的接口调用服务，帮助您实现更快速、便捷的开发和调用体验。
               </Title>
             </Text>
@@ -199,7 +198,7 @@ const Welcome: React.FC = () => {
               title={<Title level={5}>多样化的接口选择</Title>}
               desc={
                 <Text strong>
-                  平台上提供丰富多样的接口供您选择，涵盖了各个领域的功能和服务，满足不同需求。
+                  平台提供丰富多样的接口供您选择，涵盖了各个领域的功能和服务，满足不同需求。
                 </Text>
               }
             />
@@ -209,7 +208,7 @@ const Welcome: React.FC = () => {
               title={<Title level={5}>在线调试功能</Title>}
               desc={
                 <Text strong>
-                  您可以在平台上进行接口在线调试，快速验证接口的功能和效果，节省了开发调试的时间和工作量。
+                  您可以在平台上进行接口在线调试，快速验证接口的功能和效果，节省开发调试的时间和工作量。
                 </Text>
               }
             />
@@ -226,10 +225,10 @@ const Welcome: React.FC = () => {
             <InfoCard
               index={4}
               href=""
-              title={<Title level={5}>开发者文档和技术支持</Title>}
+              title={<Title level={5}>详细的开发者文档</Title>}
               desc={
                 <Text strong>
-                  平台提供了详细的开发者文档和技术支持，帮助开发者快速接入和发布接口，解决遇到的问题和困难。
+                  平台提供了详细的开发者文档，帮助开发者快速接入和发布接口，解决遇到的问题和困难。
                 </Text>
               }
             />

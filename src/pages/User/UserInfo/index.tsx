@@ -366,7 +366,9 @@ const UserInfo: React.FC = () => {
           </Descriptions.Item>
           <Descriptions column={1}>
             <div>
-              <h4>昵称：</h4>
+              <h4 style={{ marginTop: 15 }}>
+                <strong>昵称：</strong>
+              </h4>
               <Paragraph
                 editable={{
                   icon: <EditOutlined />,
@@ -380,19 +382,25 @@ const UserInfo: React.FC = () => {
               </Paragraph>
             </div>
             <div>
+              <h4>
+                <strong>ID：</strong>
+              </h4>
+              <Paragraph copyable={valueLength(loginUser?.id)}>{loginUser?.id}</Paragraph>
+            </div>
+            <div>
               <Tooltip title={'邀请好友注册双方都可获得100积分'}>
-                <h4>我的邀请码：</h4>
+                <h4>
+                  <strong>邀请码：</strong>
+                </h4>
               </Tooltip>
               <Paragraph copyable={valueLength(loginUser?.invitationCode)}>
                 {loginUser?.invitationCode}
               </Paragraph>
             </div>
             <div>
-              <h4>我的id：</h4>
-              <Paragraph copyable={valueLength(loginUser?.id)}>{loginUser?.id}</Paragraph>
-            </div>
-            <div>
-              <h4>我的邮箱：</h4>
+              <h4>
+                <strong>邮箱：</strong>
+              </h4>
               <Paragraph copyable={valueLength(loginUser?.email)}>
                 {valueLength(loginUser?.email) ? loginUser?.email : '未绑定邮箱'}
               </Paragraph>
@@ -418,14 +426,15 @@ const UserInfo: React.FC = () => {
             </>
           }
         >
-          <strong>积分 💰: </strong>{' '}
+          <strong>积分💰：</strong>{' '}
           <span style={{ color: 'red', fontSize: 18 }}>{loginUser?.balance}</span>
           <br />
-          <strong>获取更多：</strong>
           <br />
+          <strong>获取更多：</strong>
           <Button
             style={{ marginRight: 10, marginBottom: 10 }}
             type={'primary'}
+            size={'small'}
             onClick={() => {
               setOpen(true);
             }}
@@ -436,6 +445,7 @@ const UserInfo: React.FC = () => {
             loading={dailyCheckInLoading}
             style={{ marginRight: 10 }}
             type={'primary'}
+            size={'small'}
             onClick={async () => {
               setDailyCheckInLoading(true);
               const res = await doDailyCheckInUsingPost();
@@ -474,7 +484,8 @@ const UserInfo: React.FC = () => {
           ref={ref3}
           bordered
           type="inner"
-          title={'开发者凭证（调用接口的凭证）'}
+          tooltip="调用接口的凭证"
+          title={<strong>开发者凭证</strong>}
           extra={
             <Button loading={voucherLoading} onClick={updateVoucher}>
               {loginUser?.accessKey && loginUser?.secretKey ? '更新' : '生成'}凭证
@@ -483,12 +494,12 @@ const UserInfo: React.FC = () => {
         >
           {loginUser?.accessKey && loginUser?.secretKey ? (
             <Descriptions column={1}>
-              <Descriptions.Item label="AccessKey">
+              <Descriptions.Item label={<strong style={{ color: 'black' }}>AccessKey</strong>}>
                 <Paragraph copyable={valueLength(loginUser?.accessKey)}>
                   {loginUser?.accessKey}
                 </Paragraph>
               </Descriptions.Item>
-              <Descriptions.Item label="SecretKey">
+              <Descriptions.Item label={<strong style={{ color: 'black' }}>SecretKey</strong>}>
                 <Paragraph copyable={valueLength(loginUser?.secretKey)}>
                   {loginUser?.secretKey}
                 </Paragraph>
@@ -502,7 +513,8 @@ const UserInfo: React.FC = () => {
         <ProCard
           ref={ref4}
           type="inner"
-          title={<strong>开发者 SDK（快速接入API接口）</strong>}
+          tooltip="快速接入API接口"
+          title={<strong>开发者SDK</strong>}
           bordered
         >
           <Button size={'large'}>

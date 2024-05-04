@@ -144,8 +144,8 @@ const InterfaceInfo: React.FC = () => {
     if (!loginUser) {
       message.error('未登录');
       history.push('/user/login');
+      return;
     }
-
     setResultLoading(true);
     const res = await invokeInterfaceUsingPost({
       id: data?.id,
@@ -267,9 +267,9 @@ const InterfaceInfo: React.FC = () => {
         </Descriptions>
       </Card>
       <Card>
-        <p className="highlightLine">接口详细描述请前往开发者在线文档查看：</p>
+        <p className="highlightLine">接口详细描述请前往开发者文档查看：</p>
         <a href={`${docUrl}/pages/${data?.id}/#${data?.name}`} target={'_blank'} rel="noreferrer">
-          📘 接口在线文档：{data?.name}
+          📘 开发者文档：{data?.name}
         </a>
       </Card>
       <br />

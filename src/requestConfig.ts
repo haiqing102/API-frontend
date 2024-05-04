@@ -34,6 +34,9 @@ export const requestConfig: RequestConfig = {
         return response;
       } else {
         switch (code) {
+          // 使用游客身份访问
+          case 403:
+            break;
           // 账号已封禁
           case 40001:
             {
@@ -43,6 +46,10 @@ export const requestConfig: RequestConfig = {
             break;
           // 未登录
           case 40100:
+            {
+              message.error(data.message);
+              history.push('/user/login');
+            }
             break;
           default:
             message.error(data.message);

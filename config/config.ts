@@ -11,6 +11,7 @@ export default defineConfig({
   theme: {
     'root-entry-name': 'variable',
   },
+  favicons: ['/favivon.ico'],
   /* openAPI: [
     {
       requestLibPath: "import { request } from '@umijs/max'",

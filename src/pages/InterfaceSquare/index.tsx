@@ -42,6 +42,7 @@ const InterfaceSquare: React.FC = () => {
     const res = await listInterfaceInfoBySearchTextPageUsingGet({
       current: 1,
       searchText: searchText,
+      sortOrder: 'descend',
     });
     if (res.data) {
       setData(res?.data?.records || []);
@@ -101,8 +102,8 @@ const InterfaceSquare: React.FC = () => {
                   <Badge count={item.totalInvokes} overflowCount={999999999} color="#eb4d4b">
                     <Image
                       style={{ width: 70 }}
-                      src={item?.avatarUrl ?? 'https://img.suki.vin/other/logo.gif'}
-                      fallback={'https://img.suki.vin/other/logo.gif'}
+                      src={item?.avatarUrl ?? 'https://img.suki.vin/other/logo.png'}
+                      fallback={'https://img.suki.vin/other/logo.png'}
                       alt={item.name}
                       preview={false}
                     />
