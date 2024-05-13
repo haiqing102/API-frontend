@@ -79,9 +79,9 @@ const UploadModal: React.FC<Props> = (props) => {
     if (!fileType) {
       message.error('图片类型有误,请上传jpg/png/svg/jpeg/webp格式!');
     }
-    const isLt2M = file.size / 1024 / 1024 < 1;
+    const isLt2M = file.size / (1024 * 1024) < 5;
     if (!isLt2M) {
-      message.error('文件大小不能超过 1M !');
+      message.error('文件大小不能超过 5M !');
     }
     if (!isLt2M && !fileType) {
       const updatedFileList = [...fileList];

@@ -1,13 +1,14 @@
-import EmailModal from '@/components/EmailModal';
+import EmailModel from '@/components/EmailModel';
 import SendGiftModal from '@/components/Gift/SendGift';
+import UpdatePassword from '@/components/UpdatePassword';
 import { requestConfig } from '@/requestConfig';
 import { doDailyCheckInUsingPost } from '@/services/api-backend/dailyCheckInController';
 import {
   getUserByIdUsingGet,
+  updateUserPwdUsingPost,
   updateUserUsingPost,
   updateVoucherUsingPost,
   userBindEmailUsingPost,
-  userUnBindEmailUsingPost,
 } from '@/services/api-backend/userController';
 import { EditOutlined, PlusOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import ProCard from '@ant-design/pro-card';
@@ -29,7 +30,6 @@ import ImgCrop from 'antd-img-crop';
 import { RcFile } from 'antd/es/upload';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import React, { useEffect, useRef, useState } from 'react';
-import Settings from '../../../../config/defaultSettings';
 
 export const valueLength = (val: any) => {
   return val && val.trim().length > 0;
@@ -54,8 +54,10 @@ const UserInfo: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const handleCancel = () => setPreviewOpen(false);
   const [username, setUserName] = useState<string | undefined>('');
+  const [userAccount, setUserAccount] = useState<string | undefined>('');
   const [open, setOpen] = useState(false);
-  const [openEmailModal, setOpenEmailModal] = useState(false);
+  const [openEmailModel, setOpenEmailModel] = useState(false);
+  const [openPwd, setOpenPwd] = useState(false);
 
   const ref1 = useRef(null);
   const ref2 = useRef(null);
@@ -125,6 +127,7 @@ const UserInfo: React.FC = () => {
         setFileList(updatedFileList);
       }
       setUserName(loginUser?.username);
+      setUserAccount(loginUser?.userAccount);
       setLoading(false);
     }
     // PC端显示指引
@@ -176,11 +179,11 @@ const UserInfo: React.FC = () => {
     if (!fileType) {
       message.error('图片类型有误,请上传jpg/png/svg/jpeg/webp格式!');
     }
-    const isLt2M = file.size / 1024 / 1024 < 1;
-    if (!isLt2M) {
-      message.error('文件大小不能超过 1M !');
+    const isLt10M = file.size / (1024 * 1024) < 10;
+    if (!isLt10M) {
+      message.error('文件大小不能超过 10M !');
     }
-    if (!isLt2M && !fileType) {
+    if (!isLt10M && !fileType) {
       const updatedFileList = [...fileList];
       updatedFileList[0] = {
         // @ts-ignore
@@ -193,14 +196,19 @@ const UserInfo: React.FC = () => {
       setFileList(updatedFileList);
       return false;
     }
-    return fileType && isLt2M;
+    return fileType && isLt10M;
   };
 
   const updateVoucher = async () => {
     setVoucherLoading(true);
     const res = await updateVoucherUsingPost();
     if (res.data && res.code === 0) {
-      setInitialState({ loginUser: res.data, settings: Settings });
+      setInitialState((oldState) => {
+        return {
+          ...oldState,
+          loginUser: res.data,
+        };
+      });
       setTimeout(() => {
         message.success(`凭证更新成功`);
         setVoucherLoading(false);
@@ -219,10 +227,37 @@ const UserInfo: React.FC = () => {
       userAvatar: avatarUrl,
       id: loginUser?.id,
       username: username,
+      userAccount: userAccount,
     });
     if (res.data && res.code === 0) {
-      setInitialState({ loginUser: res.data, settings: Settings });
+      setInitialState((oldState) => {
+        return {
+          ...oldState,
+          loginUser: res.data,
+        };
+      });
       message.success(`信息更新成功`);
+    }
+  };
+
+  const haddleUpdatePwdSubmit = async (values: API.UserUpdateRequest) => {
+    try {
+      const res = await updateUserPwdUsingPost({
+        // @ts-ignore
+        ...values,
+      });
+      if (res.data && res.code === 0) {
+        setInitialState((oldState) => {
+          return {
+            ...oldState,
+            loginUser: res.data,
+          };
+        });
+        setOpenPwd(false);
+        message.success('密码更新成功');
+      }
+    } catch (error) {
+      message.error('操作失败！');
     }
   };
 
@@ -290,31 +325,14 @@ const UserInfo: React.FC = () => {
         ...values,
       });
       if (res.data && res.code === 0) {
-        if (initialState?.settings.navTheme === 'light') {
-          setInitialState({ loginUser: res.data, settings: { ...Settings, navTheme: 'light' } });
-        } else {
-          setInitialState({ loginUser: res.data, settings: { ...Settings, navTheme: 'realDark' } });
-        }
-        setOpenEmailModal(false);
+        setInitialState((oldState) => {
+          return {
+            ...oldState,
+            loginUser: res.data,
+          };
+        });
+        setOpenEmailModel(false);
         message.success('绑定成功');
-      }
-    } catch (error) {
-      const defaultLoginFailureMessage = '操作失败！';
-      message.error(defaultLoginFailureMessage);
-    }
-  };
-  const handleUnBindEmailSubmit = async (values: API.UserUnBindEmailRequest) => {
-    try {
-      // 绑定邮箱
-      const res = await userUnBindEmailUsingPost({ ...values });
-      if (res.data && res.code === 0) {
-        if (initialState?.settings.navTheme === 'light') {
-          setInitialState({ loginUser: res.data, settings: { ...Settings, navTheme: 'light' } });
-        } else {
-          setInitialState({ loginUser: res.data, settings: { ...Settings, navTheme: 'realDark' } });
-        }
-        setOpenEmailModal(false);
-        message.success('解绑成功');
       }
     } catch (error) {
       const defaultLoginFailureMessage = '操作失败！';
@@ -328,17 +346,8 @@ const UserInfo: React.FC = () => {
           ref={ref1}
           extra={
             <>
-              <Tooltip title={'用于接收订单信息'}>
-                <Button
-                  onClick={() => {
-                    setOpenEmailModal(true);
-                  }}
-                >
-                  {loginUser?.email ? '更新邮箱' : '绑定邮箱'}
-                </Button>
-              </Tooltip>
               <Tooltip title={'提交修改的信息'}>
-                <Button style={{ marginLeft: 10 }} onClick={updateUserInfo}>
+                <Button type="primary" style={{ marginLeft: 10 }} onClick={updateUserInfo}>
                   提交修改
                 </Button>
               </Tooltip>
@@ -378,14 +387,27 @@ const UserInfo: React.FC = () => {
                   },
                 }}
               >
-                {valueLength(username) ? username : '无名氏'}
+                {valueLength(username) ? username : '默认昵称'}
               </Paragraph>
             </div>
             <div>
               <h4>
-                <strong>ID：</strong>
+                <strong>账号：</strong>
               </h4>
-              <Paragraph copyable={valueLength(loginUser?.id)}>{loginUser?.id}</Paragraph>
+              <Paragraph
+                editable={{
+                  icon: <EditOutlined />,
+                  tooltip: '编辑',
+                  onChange: (value) => {
+                    setUserAccount(value);
+                  },
+                }}
+              >
+                {valueLength(userAccount) ? userAccount : '未绑定账号'}
+              </Paragraph>
+              {/* <Paragraph copyable={valueLength(loginUser?.userAccount)}>
+                {valueLength(loginUser?.userAccount) ? loginUser?.userAccount : '未绑定账号'}
+              </Paragraph> */}
             </div>
             <div>
               <Tooltip title={'邀请好友注册双方都可获得100积分'}>
@@ -405,6 +427,27 @@ const UserInfo: React.FC = () => {
                 {valueLength(loginUser?.email) ? loginUser?.email : '未绑定邮箱'}
               </Paragraph>
             </div>
+            <div>
+              <Tooltip title={'用于登录和接收订单通知'}>
+                <Button
+                  style={{ marginRight: 10 }}
+                  onClick={() => {
+                    setOpenEmailModel(true);
+                  }}
+                >
+                  {loginUser?.email ? '更新邮箱' : '绑定邮箱'}
+                </Button>
+              </Tooltip>
+              <Tooltip title={'用于平台账号登录'}>
+                <Button
+                  onClick={() => {
+                    setOpenPwd(true);
+                  }}
+                >
+                  {loginUser?.userPassword ? '修改密码' : '设置密码'}
+                </Button>
+              </Tooltip>
+            </div>
           </Descriptions>
         </ProCard>
         <br />
@@ -417,6 +460,7 @@ const UserInfo: React.FC = () => {
           extra={
             <>
               <Button
+                type="primary"
                 onClick={() => {
                   history.push('/recharge/list');
                 }}
@@ -430,11 +474,8 @@ const UserInfo: React.FC = () => {
           <span style={{ color: 'red', fontSize: 18 }}>{loginUser?.balance}</span>
           <br />
           <br />
-          <strong>获取更多：</strong>
           <Button
             style={{ marginRight: 10, marginBottom: 10 }}
-            type={'primary'}
-            size={'small'}
             onClick={() => {
               setOpen(true);
             }}
@@ -444,8 +485,6 @@ const UserInfo: React.FC = () => {
           <Button
             loading={dailyCheckInLoading}
             style={{ marginRight: 10 }}
-            type={'primary'}
-            size={'small'}
             onClick={async () => {
               setDailyCheckInLoading(true);
               const res = await doDailyCheckInUsingPost();
@@ -470,8 +509,6 @@ const UserInfo: React.FC = () => {
               title={
                 <>
                   <p>每日签到可获取10积分</p>
-                  {/*<p>普通用户上限100</p>*/}
-                  {/*<p>VPI会员上限1000</p>*/}
                 </>
               }
             >
@@ -487,7 +524,7 @@ const UserInfo: React.FC = () => {
           tooltip="调用接口的凭证"
           title={<strong>开发者凭证</strong>}
           extra={
-            <Button loading={voucherLoading} onClick={updateVoucher}>
+            <Button type="primary" loading={voucherLoading} onClick={updateVoucher}>
               {loginUser?.accessKey && loginUser?.secretKey ? '更新' : '生成'}凭证
             </Button>
           }
@@ -531,12 +568,17 @@ const UserInfo: React.FC = () => {
         }}
         open={open}
       />
-      <EmailModal
-        unbindSubmit={handleUnBindEmailSubmit}
+      <EmailModel
         bindSubmit={handleBindEmailSubmit}
         data={loginUser}
-        onCancel={() => setOpenEmailModal(false)}
-        open={openEmailModal}
+        onCancel={() => setOpenEmailModel(false)}
+        open={openEmailModel}
+      />
+      <UpdatePassword
+        data={loginUser}
+        onCancel={() => setOpenPwd(false)}
+        openPwd={openPwd}
+        updatePwdSubmit={haddleUpdatePwdSubmit}
       />
       <Tour
         open={openTour}

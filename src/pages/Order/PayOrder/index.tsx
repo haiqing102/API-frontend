@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 
 import Alipay from '@/components/Icon/Alipay';
 import WxPay from '@/components/Icon/WxPay';
-import { valueLength } from '@/pages/User/UserInfo';
 import {
   createOrderUsingPost,
   getProductOrderByIdUsingGet,
@@ -167,9 +166,9 @@ const PayOrder: React.FC = () => {
             <div style={{ marginLeft: 10 }}>
               <h3>{order?.productInfo?.name}</h3>
               <h4>
-                {valueLength(order?.productInfo?.description)
-                  ? order?.productInfo?.description
-                  : '暂不支持微信支付，请使用支付宝付款'}
+                <p>【注】本商品采用支付宝沙箱模拟支付，可随意购买</p>
+                <p>付款账号：vhxxhi5635@sandbox.com</p>
+                <p>支付密码：111111</p>
               </h4>
             </div>
           </Card>

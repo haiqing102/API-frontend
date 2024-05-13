@@ -1,6 +1,7 @@
 import CodeHighlighting from '@/components/CodeHighlighting';
 import ParamsTable from '@/components/ParamsTable';
 import { DEFAULT_ADD_FIELD, requestParam } from '@/pages/InterfaceInfo/components/CodeTemplate';
+import { ReloadOutlined } from '@ant-design/icons';
 import '@umijs/max';
 import { Button, Empty, Form, Image, Select, Space, Spin } from 'antd';
 import Search from 'antd/es/input/Search';
@@ -103,12 +104,28 @@ const ToolsTab: React.FC<Props> = (props) => {
       {resultObj?.data?.imgurl && (
         <Spin spinning={resultLoading}>
           <Image width={400} src={resultObj?.data?.imgurl} />
+          <Button
+            style={{ position: 'absolute', bottom: 0, marginLeft: 10 }}
+            type="primary"
+            size="large"
+            shape="circle"
+            icon={<ReloadOutlined />}
+            onClick={form.submit}
+          />
         </Spin>
       )}
 
       {resultObj?.data?.url && (
         <Spin spinning={resultLoading}>
           <Image width={200} src={resultObj.data.url} />
+          <Button
+            style={{ position: 'absolute', bottom: 0, marginLeft: 10 }}
+            type="primary"
+            size="large"
+            shape="circle"
+            icon={<ReloadOutlined />}
+            onClick={form.submit}
+          />
         </Spin>
       )}
 
@@ -120,6 +137,14 @@ const ToolsTab: React.FC<Props> = (props) => {
             </div>
             <div>
               <audio src={resultObj.data.info.url} autoPlay controls></audio>
+              <Button
+                style={{ position: 'absolute', bottom: 12, marginLeft: 10 }}
+                type="primary"
+                size="large"
+                shape="circle"
+                icon={<ReloadOutlined />}
+                onClick={form.submit}
+              />
             </div>
           </div>
         </Spin>

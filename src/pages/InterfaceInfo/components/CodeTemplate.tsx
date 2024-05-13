@@ -95,19 +95,6 @@ export const requestParam: ProColumns[] = [
     key: 'desc',
     editable: false,
   },
-  /*  {
-    title: '参数值',
-    width: 300,
-    dataIndex: 'value',
-    formItemProps: {
-      rules: [
-        {
-          required: true,
-          message: '此项是必填项',
-        },
-      ],
-    },
-  }, */
   {
     title: '参数值',
     width: 385,

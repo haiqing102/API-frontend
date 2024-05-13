@@ -53,8 +53,7 @@ const Login: React.FC = () => {
       flexDirection: 'column',
       height: '100vh',
       overflow: 'auto',
-      backgroundImage:
-        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
+      backgroundImage: 'linear-gradient(to top, #accbee 0%, #e7f0fd 100%);',
       backgroundSize: '100% 100%',
     };
   });
@@ -191,7 +190,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <MailOutlined />,
                 }}
-                name="emailAccount"
+                name="email"
                 placeholder={'请输入邮箱'}
                 rules={[
                   {
@@ -219,7 +218,7 @@ const Login: React.FC = () => {
                   }
                   return '获取验证码';
                 }}
-                phoneName={'emailAccount'}
+                phoneName={'email'}
                 name="captcha"
                 rules={[
                   {
@@ -227,8 +226,8 @@ const Login: React.FC = () => {
                     message: '❗验证码不能为空',
                   },
                 ]}
-                onGetCaptcha={async (emailAccount) => {
-                  const res = await getCaptchaUsingGet({ emailAccount });
+                onGetCaptcha={async (email) => {
+                  const res = await getCaptchaUsingGet({ email });
                   if (res.data && res.code === 0) {
                     message.success('验证码发送成功');
                     return;

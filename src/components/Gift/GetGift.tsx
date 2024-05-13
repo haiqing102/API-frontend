@@ -19,10 +19,7 @@ const GetGiftModal: React.FC<Props> = (props) => {
           <div style={{ borderRadius: '50%', padding: '2px' }}>
             <img
               style={{ width: 80, height: 80, borderRadius: '50%' }}
-              src={
-                data?.userAvatar ??
-                'https://api-1320989886.cos.ap-chongqing.myqcloud.com/other/default_avater.png'
-              }
+              src={data?.userAvatar ?? 'https://img.suki.vin/other/default_avater.png'}
               alt={data?.username}
             />
           </div>

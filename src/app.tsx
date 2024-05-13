@@ -87,10 +87,12 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
                 history.push(loginPath);
                 return;
               }
-              setInitialState({
-                loginUser: initialState?.loginUser,
-                settings: Settings,
-                open: true,
+              setInitialState((oldState) => {
+                return {
+                  ...oldState,
+                  loginUser: initialState?.loginUser,
+                  open: true,
+                };
               });
             }}
           />
@@ -123,7 +125,13 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
           invitationCode={initialState?.loginUser?.invitationCode}
           open={initialState?.open}
           onCancel={() =>
-            setInitialState({ loginUser: initialState?.loginUser, settings: Settings, open: false })
+            setInitialState((oldState) => {
+              return {
+                ...oldState,
+                loginUser: initialState?.loginUser,
+                open: false,
+              };
+            })
           }
         ></SendGift>
       </>
@@ -131,7 +139,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     avatarProps: {
       src: valueLength(initialState?.loginUser?.userAvatar)
         ? initialState?.loginUser?.userAvatar
-        : 'https://api-1320989886.cos.ap-chongqing.myqcloud.com/other/default_avatar.png',
+        : 'https://img.suki.vin/other/default_avatar.png',
       title: initialState?.loginUser ? <AvatarName /> : '游客',
       render: (_, avatarChildren) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;

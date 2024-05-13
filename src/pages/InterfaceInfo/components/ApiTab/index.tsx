@@ -26,10 +26,10 @@ const ApiTab: React.FC<Props> = (props) => {
       <Table
         dataSource={requestParams && requestParams.length > 0 ? requestParams : requestParameters}
         pagination={false}
-        style={{ maxWidth: 650 }}
+        style={{ maxWidth: 700 }}
         size={'small'}
       >
-        <Column width={170} title="参数名称" dataIndex="fieldName" key="fieldName" />
+        <Column width={150} title="参数名称" dataIndex="fieldName" key="fieldName" />
         <Column width={150} title="必选" dataIndex="required" key="required" />
         <Column width={150} title="类型" dataIndex="type" key="type" />
         <Column title="描述" dataIndex="desc" key="desc" />
@@ -42,10 +42,10 @@ const ApiTab: React.FC<Props> = (props) => {
           responseParams && responseParams?.length > 0 ? responseParams : responseParameters
         }
         pagination={false}
-        style={{ maxWidth: 470 }}
+        style={{ maxWidth: 450 }}
         size={'small'}
       >
-        <Column width={170} title="参数名称" dataIndex="fieldName" key="fieldName" />
+        <Column width={150} title="参数名称" dataIndex="fieldName" key="fieldName" />
         <Column width={150} title="类型" dataIndex="type" key="type" />
         <Column title="描述" dataIndex="desc" key="desc" />
       </Table>

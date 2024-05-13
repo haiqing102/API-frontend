@@ -109,8 +109,8 @@ declare namespace API {
   };
 
   type getCaptchaUsingGetParams = {
-    /** emailAccount */
-    emailAccount?: string;
+    /** email */
+    email?: string;
   };
 
   type getInterfaceInfoByIdUsingGetParams = {
@@ -488,18 +488,18 @@ declare namespace API {
 
   type UserBindEmailRequest = {
     captcha?: string;
-    emailAccount?: string;
+    email?: string;
   };
 
   type UserEmailLoginRequest = {
     captcha?: string;
-    emailAccount?: string;
+    email?: string;
   };
 
   type UserEmailRegisterRequest = {
     agreeToAnAgreement?: string;
     captcha?: string;
-    emailAccount?: string;
+    email?: string;
     invitationCode?: string;
     username?: string;
   };
@@ -520,7 +520,7 @@ declare namespace API {
 
   type UserUnBindEmailRequest = {
     captcha?: string;
-    emailAccount?: string;
+    email?: string;
   };
 
   type UserUpdateRequest = {
@@ -547,6 +547,7 @@ declare namespace API {
     status?: number;
     updateTime?: string;
     userAccount?: string;
+    userPassword?: string;
     userAvatar?: string;
     userRole?: string;
     username?: string;

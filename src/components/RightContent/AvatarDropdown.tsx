@@ -6,7 +6,6 @@ import { stringify } from 'querystring';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
-import Settings from '../../../config/defaultSettings';
 import HeaderDropdown from '../HeaderDropdown';
 
 export type GlobalHeaderRightProps = {
@@ -18,7 +17,7 @@ export const AvatarName = () => {
   const { initialState } = useModel('@@initialState');
   const { loginUser } = initialState || {};
   return (
-    <p className="anticon">{valueLength(loginUser?.username) ? loginUser?.username : '无名氏'}</p>
+    <p className="anticon">{valueLength(loginUser?.username) ? loginUser?.username : '默认昵称'}</p>
   );
 };
 
@@ -36,11 +35,12 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ children }) =
     const redirect = urlParams.get('redirect');
     // Note: There may be security issues, please note
     if (window.location.pathname !== '/user/login' && !redirect) {
-      if (initialState?.settings.navTheme === 'light') {
-        setInitialState({ loginUser: {}, settings: { ...Settings, navTheme: 'light' } });
-      } else {
-        setInitialState({ loginUser: {}, settings: { ...Settings, navTheme: 'realDark' } });
-      }
+      setInitialState((oldState) => {
+        return {
+          ...oldState,
+          loginUser: initialState?.loginUser,
+        };
+      });
       history.replace({
         pathname: '/user/login',
         search: stringify({

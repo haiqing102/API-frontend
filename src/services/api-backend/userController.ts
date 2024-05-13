@@ -249,6 +249,21 @@ export async function updateUserUsingPost(
   });
 }
 
+/** updatePwd POST /api/backend/user/updatePwd */
+export async function updateUserPwdUsingPost(
+  body: API.UserUpdateRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseUserVo>('/api/backend/user/updatePwd', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** updateVoucher POST /api/backend/user/update/voucher */
 export async function updateVoucherUsingPost(options?: { [key: string]: any }) {
   return request<API.BaseResponseUserVo>('/api/backend/user/update/voucher', {

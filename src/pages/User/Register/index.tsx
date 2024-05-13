@@ -42,8 +42,7 @@ const Register: React.FC = () => {
       flexDirection: 'column',
       height: '100vh',
       overflow: 'auto',
-      backgroundImage:
-        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
+      backgroundImage: 'linear-gradient(to top, #accbee 0%, #e7f0fd 100%);',
       backgroundSize: '100% 100%',
     };
   });
@@ -59,7 +58,7 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (values: API.UserRegisterRequest) => {
     try {
-      // 登录
+      // 注册
       const res = await userRegisterUsingPost({
         ...values,
       });
@@ -72,7 +71,7 @@ const Register: React.FC = () => {
 
   const handleEmailSubmit = async (values: API.UserEmailRegisterRequest) => {
     try {
-      // 登录
+      // 邮箱注册
       const res = await userEmailRegisterUsingPost({
         ...values,
       });
@@ -93,7 +92,7 @@ const Register: React.FC = () => {
       <div
         style={{
           flex: '1',
-          padding: '29px 0 0 0',
+          padding: '40px 0 0 0',
         }}
       >
         <LoginForm
@@ -223,7 +222,7 @@ const Register: React.FC = () => {
                   size: 'large',
                   prefix: <MailOutlined />,
                 }}
-                name="emailAccount"
+                name="email"
                 placeholder={'电子邮箱'}
                 rules={[
                   {
@@ -259,7 +258,7 @@ const Register: React.FC = () => {
                   }
                   return '获取验证码';
                 }}
-                phoneName={'emailAccount'}
+                phoneName={'email'}
                 name="captcha"
                 rules={[
                   {
@@ -267,8 +266,8 @@ const Register: React.FC = () => {
                     message: '❗验证码不能为空',
                   },
                 ]}
-                onGetCaptcha={async (emailAccount) => {
-                  const res = await getCaptchaUsingGet({ emailAccount });
+                onGetCaptcha={async (email) => {
+                  const res = await getCaptchaUsingGet({ email });
                   if (res.data && res.code === 0) {
                     message.success('验证码发送成功');
                     return;
@@ -293,22 +292,10 @@ const Register: React.FC = () => {
             ]}
           >
             已阅读并同意：
-            <a
-              target={'_blank'}
-              href={
-                'https://gitee.com/qimu6/statement/blob/master/%E9%9A%90%E7%A7%81%E5%8D%8F%E8%AE%AE.md#%E6%9F%92%E6%9C%A8%E6%8E%A5%E5%8F%A3-%E9%9A%90%E7%A7%81%E6%9D%A1%E6%AC%BE'
-              }
-              rel="noreferrer"
-            >
+            <a href={'javascript:void(0);'} rel="noreferrer">
               隐私协议、
             </a>
-            <a
-              target={'_blank'}
-              href={
-                'https://gitee.com/qimu6/statement/blob/master/%E6%9F%92%E6%9C%A8%E6%8E%A5%E5%8F%A3%E7%94%A8%E6%88%B7%E5%8D%8F%E8%AE%AE.md#%E6%9F%92%E6%9C%A8%E6%8E%A5%E5%8F%A3%E7%94%A8%E6%88%B7%E5%8D%8F%E8%AE%AE'
-              }
-              rel="noreferrer"
-            >
+            <a href={'javascript:void(0);'} rel="noreferrer">
               用户协议
             </a>
           </ProFormCheckbox>
