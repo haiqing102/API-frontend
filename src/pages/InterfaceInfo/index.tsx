@@ -12,7 +12,6 @@ import {
   returnExample,
 } from '@/pages/InterfaceInfo/components/CodeTemplate';
 import ToolsTab from '@/pages/InterfaceInfo/components/ToolsTab';
-import { valueLength } from '@/pages/User/UserInfo';
 import {
   getInterfaceInfoByIdUsingGet,
   invokeInterfaceUsingPost,
@@ -255,7 +254,7 @@ const InterfaceInfo: React.FC = () => {
           <Descriptions.Item key={'description'} label="接口描述">
             {data?.description ?? '该接口暂无描述信息'}
           </Descriptions.Item>
-          <Descriptions.Item key={'请求示例'} label="请求示例">
+          {/* <Descriptions.Item key={'请求示例'} label="请求示例">
             {data?.requestExample ? (
               <Paragraph copyable={valueLength(data?.requestExample)}>
                 {data?.requestExample}
@@ -263,7 +262,7 @@ const InterfaceInfo: React.FC = () => {
             ) : (
               '该接口暂无请求示例'
             )}
-          </Descriptions.Item>
+          </Descriptions.Item> */}
         </Descriptions>
       </Card>
       <Card>
