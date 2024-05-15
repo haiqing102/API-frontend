@@ -92,7 +92,7 @@ const Register: React.FC = () => {
       <div
         style={{
           flex: '1',
-          padding: '40px 0 0 0',
+          padding: '43px 0 0 0',
         }}
       >
         <LoginForm

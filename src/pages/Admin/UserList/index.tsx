@@ -174,7 +174,7 @@ const UserList: React.FC = () => {
         <a
           key="update"
           onClick={() => {
-            setCurrentRow(record);
+            setCurrentRow({ ...record, userPassword: '' });
             handleUpdateModalOpen(true);
           }}
         >

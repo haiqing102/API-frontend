@@ -68,11 +68,10 @@ const InfoCard: React.FC<{
       </div>
       <div
         style={{
-          fontSize: '14px',
           color: token.colorTextSecondary,
           textAlign: 'justify',
           lineHeight: '22px',
-          marginBottom: 8,
+          marginBottom: 10,
         }}
       >
         {desc}
@@ -112,6 +111,7 @@ const Welcome: React.FC = () => {
       <Card
         style={{
           borderRadius: 8,
+          padding: 6,
         }}
         bodyStyle={{
           backgroundImage:
@@ -151,7 +151,7 @@ const Welcome: React.FC = () => {
               <Title level={4}>
                 API 接口服务平台是一个为用户和开发者提供全面 API 接口调用服务的平台 🛠
               </Title>
-              <Title level={5} style={{ lineHeight: '27px' }}>
+              <Title level={5} style={{ lineHeight: '30px' }}>
                 😀
                 作为用户，您可以根据自己的需求浏览和选择合适的接口，并通过签到/邀请/购买积分来获取接口调用权限。您可以在线进行接口调试，快速验证接口的功能和效果。
                 <br />
